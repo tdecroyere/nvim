@@ -3,7 +3,7 @@ local c = require('vscode.colors').get_colors()
 require('vscode').setup({
     style = 'dark',
     transparent = true,
-    italic_comments = true,
+    italic_comments = false,
     disable_nvimtree_bg = true,
     group_overrides = {
         ["@keyword"] = { fg = c.vscBlue, bg = c.vscNone },
