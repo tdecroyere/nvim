@@ -170,6 +170,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\Thomas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  ["todo-comments.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\Thomas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\todo-comments.nvim",
+    url = "https://github.com/folke/todo-comments.nvim"
+  },
   ["vim-be-good"] = {
     loaded = true,
     path = "C:\\Users\\Thomas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-be-good",

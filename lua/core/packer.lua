@@ -66,5 +66,10 @@ use {
 
 use('RRethy/vim-illuminate')
 
+use {
+  'folke/todo-comments.nvim',
+  requires = { "nvim-lua/plenary.nvim" },
+}
+
   use('ThePrimeagen/vim-be-good')
 end)

@@ -37,6 +37,22 @@ cmp.setup({
   }
 })
 
+
+local lspconfig = require('lspconfig')
+
+lspconfig.lua_ls.setup {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = {
+                    'vim',
+                    'require'
+                },
+            },
+        },
+    }
+}
+
 -- This is a temporary fix
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
