@@ -53,6 +53,13 @@ lspconfig.lua_ls.setup {
     }
 }
 
+lspconfig.clangd.setup({
+  cmd = {
+    "clangd",
+    "--header-insertion=never"
+  }
+})
+
 -- This is a temporary fix
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
