@@ -2,7 +2,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     dependencies = { 
         "nvim-treesitter/nvim-treesitter-textobjects",
-        "HiPhish/nvim-ts-rainbow2"
+        "HiPhish/rainbow-delimiters.nvim"
     },
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
@@ -60,20 +60,25 @@ return {
                 include_surrounding_whitespace = true,
             },
             -- TODO: Object selection
-        },
-        rainbow = {
-            enable = true,
-            query = "rainbow-parens",
-            hlgroups = {
-                "TSRainbowYellow",
-                "TSRainbowViolet",
-                "TSRainbowBlue",
-            },
-        },
+        }
     },
     config = function(_, opts)
-        opts.rainbow.strategy = require("ts-rainbow").strategy.global
-
+        local rainbow = require('rainbow-delimiters')
+        vim.g.rainbow_delimiters = {
+            strategy = {
+                [''] = rainbow.strategy['global'],
+            },
+            query = {
+                [''] = 'rainbow-delimiters',
+                lua = 'rainbow-blocks',
+                html = 'rainbow-tags',
+            },
+            highlight = {
+                "TSRainbowYellow",
+                "TSRainbowViolet",
+                "TSRainbowBlue"
+            },
+        }
         require("nvim-treesitter.configs").setup(opts)
     end
 }
