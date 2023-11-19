@@ -24,7 +24,7 @@ return {
                         subProcess = false,
                         program = function()
                             return coroutine.create(function(dap_run_co)
-                                local items = vim.fn.globpath(vim.fn.getcwd(), '**/bin/**/Debug/**/*.dll', 0, 1)
+                                local items = vim.fn.globpath(vim.fn.getcwd(), 'artifacts/**/bin/**/Debug/**/*.dll', 0, 1)
                                 local opts = {
                                     format_item = function(path)
                                         return vim.fn.fnamemodify(path, ':t')
@@ -44,23 +44,43 @@ return {
                     }
                 }
             },
-            cppdbg = {
+            codelldb = {
                 setup = {
-                    type = "executable",
-                    command = "OpenDebugAD7",
+                    type = "server",
+                    port = "${port}",
+                    executable = {
+                        command = "codelldb",
+                        args = { "--port", "${port}" }
+                    },
                     options = { detached = false }
                 },
                 extension = "cpp",
                 configurations = {
                     {
                         name = 'Launch file',
-                        type = 'cppdbg',
+                        type = 'codelldb',
                         request = 'launch',
                         program = function()
-                            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+                            return coroutine.create(function(dap_run_co)
+                                local items = vim.fn.globpath(vim.fn.getcwd(), 'artifacts/**/bin/**/debug/*.exe', 0, 1)
+                                local opts = {
+                                    format_item = function(path)
+                                        return vim.fn.fnamemodify(path, ':t')
+                                    end,
+                                }
+                                local function cont(choice)
+                                    if choice == nil then
+                                        return nil
+                                    else
+                                        coroutine.resume(dap_run_co, choice)
+                                    end
+                                end
+
+                                vim.ui.select(items, opts, cont)
+                            end)
                         end,
                         cwd = '${workspaceFolder}',
-                        stopAtEntry = true,
+                        stopAtEntry = false,
                     }
                 }
             }
@@ -85,7 +105,13 @@ return {
             dap.adapters[dap_server_name] = dap_server_config.setup
             dap.configurations[dap_server_config.extension] = dap_server_config.configurations
 
-            dap.adapters[dap_server_name].command = vim.fn.exepath(dap_server_config.setup.command)
+            if dap_server_config.setup.command then
+                dap.adapters[dap_server_name].command = vim.fn.exepath(dap_server_config.setup.command)
+            end
+            
+            if dap_server_config.setup.executable then
+                dap.adapters[dap_server_name].executable.command = vim.fn.exepath(dap_server_config.setup.executable.command)
+            end
         end
 
         --dap.set_log_level("TRACE")
