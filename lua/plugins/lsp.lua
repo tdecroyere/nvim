@@ -6,7 +6,8 @@ return {
         "hrsh7th/nvim-cmp",
         "hrsh7th/cmp-nvim-lsp",
         "L3MON4D3/LuaSnip",
-        "onsails/lspkind.nvim"
+        "onsails/lspkind.nvim",
+        "Fildo7525/pretty_hover"
     },
     opts = {
         diagnostic = {
@@ -58,6 +59,8 @@ return {
             ensure_installed = ensure_installed
         })
 
+        require("pretty_hover").setup()
+
         local cmp = require("cmp")
 
         cmp.setup({
@@ -100,7 +103,8 @@ return {
                 vim.keymap.set("n", "gd", vim.lsp.buf.definition, parameters)
                 vim.keymap.set("n", "gr", vim.lsp.buf.references, parameters)
                 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, parameters)
-                vim.keymap.set("n", "K", vim.lsp.buf.hover, parameters)
+                --vim.keymap.set("n", "K", vim.lsp.buf.hover, parameters)
+                vim.keymap.set("n", "K", require "pretty_hover".hover, parameters)
 
                 vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, parameters)
                 vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, parameters)

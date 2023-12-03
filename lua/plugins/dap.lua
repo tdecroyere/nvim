@@ -24,7 +24,7 @@ return {
                         subProcess = false,
                         program = function()
                             return coroutine.create(function(dap_run_co)
-                                local items = vim.fn.globpath(vim.fn.getcwd(), 'artifacts/**/bin/**/Debug/**/*.dll', 0, 1)
+                                local items = vim.fn.globpath(vim.fn.getcwd(), 'artifacts/**/bin/**/Debug/**/*.exe', 0, 1)
                                 local opts = {
                                     format_item = function(path)
                                         return vim.fn.fnamemodify(path, ':t')
@@ -34,6 +34,7 @@ return {
                                     if choice == nil then
                                         return nil
                                     else
+                                        choice = choice:gsub(".exe", ".dll")
                                         coroutine.resume(dap_run_co, choice)
                                     end
                                 end
@@ -108,7 +109,7 @@ return {
             if dap_server_config.setup.command then
                 dap.adapters[dap_server_name].command = vim.fn.exepath(dap_server_config.setup.command)
             end
-            
+
             if dap_server_config.setup.executable then
                 dap.adapters[dap_server_name].executable.command = vim.fn.exepath(dap_server_config.setup.executable.command)
             end
@@ -131,8 +132,9 @@ return {
             dapui.close()
         end
 
-        vim.fn.sign_define('DapBreakpoint',{ text ='🟥', texthl ='', linehl ='', numhl =''})
-        vim.fn.sign_define('DapStopped',{ text ='▶️', texthl ='', linehl ='', numhl =''})
+        vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
+        vim.fn.sign_define('DapBreakpointRejected', {text='🚫', texthl='', linehl='', numhl=''})
+        vim.fn.sign_define('DapStopped', {text='➡️', texthl='', linehl='DebugBreakpointLine', numhl=''})
 
         vim.keymap.set('n', '<F5>', require 'dap'.continue)
         vim.keymap.set('n', '<F10>', require 'dap'.step_over)

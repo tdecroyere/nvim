@@ -1,34 +1,36 @@
 return {
     "nvim-treesitter/nvim-treesitter",
-    dependencies = { 
+    dependencies = {
         "nvim-treesitter/nvim-treesitter-textobjects",
+        "nvim-treesitter/playground",
         "HiPhish/rainbow-delimiters.nvim"
     },
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSUpdateSync" },
     opts = {
-        highlight = { 
+        highlight = {
             enable = true,
-            additional_vim_regex_highlighting = false 
+            additional_vim_regex_highlighting = false
         },
-        indent = { 
-            enable = true 
+        indent = {
+            enable = true
         },
         ensure_installed = {
-            "c", 
-            "cpp", 
-            "c_sharp", 
-            "hlsl", 
-            "usd", 
-            "cmake", 
-            "javascript", 
-            "typescript", 
-            "html", 
-            "jsonc", 
-            "yaml", 
-            "lua", 
-            "vim", 
+            "c",
+            "cpp",
+            "c_sharp",
+            "hlsl",
+            "usd",
+            "cmake",
+            "javascript",
+            "typescript",
+            "html",
+            "xml",
+            "jsonc",
+            "yaml",
+            "lua",
+            "vim",
             "vimdoc",
             "query"
         },
@@ -53,7 +55,7 @@ return {
                     ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
                 },
                 selection_modes = {
-                    ["@parameter.outer"] = "v",                    
+                    ["@parameter.outer"] = "v",
                     ["@function.outer"] = "V",
                     ["@class.outer"] = "<c-v>",
                 },
@@ -63,6 +65,16 @@ return {
         }
     },
     config = function(_, opts)
+        vim.filetype.add({
+            extension = {
+                props = "props",
+                hlsl = "hlsl"
+            }
+        })
+
+        vim.treesitter.language.register("xml", "props")
+        vim.treesitter.language.register("hlsl", "hlsl") -- HACK: It seems hlsl ext is not registered :(
+
         local rainbow = require('rainbow-delimiters')
         vim.g.rainbow_delimiters = {
             strategy = {
