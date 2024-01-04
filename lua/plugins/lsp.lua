@@ -103,7 +103,6 @@ return {
                 vim.keymap.set("n", "gd", vim.lsp.buf.definition, parameters)
                 vim.keymap.set("n", "gr", vim.lsp.buf.references, parameters)
                 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, parameters)
-                --vim.keymap.set("n", "K", vim.lsp.buf.hover, parameters)
                 vim.keymap.set("n", "K", require "pretty_hover".hover, parameters)
 
                 vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, parameters)
