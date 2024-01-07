@@ -64,6 +64,7 @@ return {
                         program = function()
                             return coroutine.create(function(dap_run_co)
                                 local items = vim.fn.globpath(vim.fn.getcwd(), 'artifacts/**/bin/**/debug/*.exe', 0, 1)
+                                --local items = vim.fn.globpath(vim.fn.getcwd(), 'build/**/debug/*.exe', 0, 1)
                                 local opts = {
                                     format_item = function(path)
                                         return vim.fn.fnamemodify(path, ':t')
