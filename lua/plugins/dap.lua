@@ -3,6 +3,7 @@ return {
     dependencies = {
         "williamboman/mason.nvim",
         "jay-babu/mason-nvim-dap.nvim",
+        "nvim-neotest/nvim-nio",
         "rcarriga/nvim-dap-ui"
     },
     opts = {
@@ -55,7 +56,7 @@ return {
                     },
                     options = { detached = false }
                 },
-                extension = "cpp",
+                extension = "c;cpp",
                 configurations = {
                     {
                         name = 'Launch file',
@@ -63,8 +64,8 @@ return {
                         request = 'launch',
                         program = function()
                             return coroutine.create(function(dap_run_co)
-                                local items = vim.fn.globpath(vim.fn.getcwd(), 'artifacts/**/bin/**/debug/*.exe', 0, 1)
-                                --local items = vim.fn.globpath(vim.fn.getcwd(), 'build/**/debug/*.exe', 0, 1)
+                                --local items = vim.fn.globpath(vim.fn.getcwd(), 'artifacts/**/bin/**/debug/*.exe', 0, 1)
+                                local items = vim.fn.globpath(vim.fn.getcwd(), 'build/bin/debug/*', 0, 1) -- Filter libs
                                 local opts = {
                                     format_item = function(path)
                                         return vim.fn.fnamemodify(path, ':t')
@@ -105,7 +106,10 @@ return {
 
         for dap_server_name, dap_server_config in pairs(opts.dap_servers) do
             dap.adapters[dap_server_name] = dap_server_config.setup
-            dap.configurations[dap_server_config.extension] = dap_server_config.configurations
+
+            for language in string.gmatch(dap_server_config.extension, "([^"..";".."]+)") do
+                dap.configurations[language] = dap_server_config.configurations
+            end
 
             if dap_server_config.setup.command then
                 dap.adapters[dap_server_name].command = vim.fn.exepath(dap_server_config.setup.command)
