@@ -32,7 +32,8 @@ return {
             "lua",
             "vim",
             "vimdoc",
-            "query"
+            "query",
+            "markdown_inline"
         },
         incremental_selection = {
             enable = true,
