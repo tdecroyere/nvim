@@ -69,11 +69,13 @@ return {
         vim.filetype.add({
             extension = {
                 props = "props",
+                razor = "razor",
                 hlsl = "hlsl"
             }
         })
 
         vim.treesitter.language.register("xml", "props")
+        vim.treesitter.language.register("html", "razor")
         vim.treesitter.language.register("hlsl", "hlsl") -- HACK: It seems hlsl ext is not registered :(
 
         local rainbow = require('rainbow-delimiters')

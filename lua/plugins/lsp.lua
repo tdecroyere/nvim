@@ -38,6 +38,8 @@ return {
                     "clangd",
                     "--header-insertion=never"
                 }
+            },
+            cssls = {
             }
         }
     },
