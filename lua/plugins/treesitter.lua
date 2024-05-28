@@ -33,7 +33,8 @@ return {
             "vim",
             "vimdoc",
             "query",
-            "markdown_inline"
+            "markdown_inline",
+            "swift"
         },
         incremental_selection = {
             enable = true,
