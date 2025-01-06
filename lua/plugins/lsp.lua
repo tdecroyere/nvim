@@ -40,7 +40,9 @@ return {
                 }
             },
             cssls = {
-            }
+            },
+            --slang = {
+            --}
         }
     },
     config = function(_, opts)

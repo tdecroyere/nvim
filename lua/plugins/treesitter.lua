@@ -34,7 +34,8 @@ return {
             "vimdoc",
             "query",
             "markdown_inline",
-            "swift"
+            "slang"
+            --"swift"
         },
         incremental_selection = {
             enable = true,
@@ -93,13 +94,15 @@ return {
             extension = {
                 props = "props",
                 razor = "razor",
-                hlsl = "hlsl"
+                hlsl = "hlsl",
+                slang = "slang"
             }
         })
 
         vim.treesitter.language.register("xml", "props")
         vim.treesitter.language.register("html", "razor")
         vim.treesitter.language.register("hlsl", "hlsl") -- HACK: It seems hlsl ext is not registered :(
+        vim.treesitter.language.register("slang", "slang") -- HACK: It seems hlsl ext is not registered :(
 
         local rainbow = require('rainbow-delimiters')
         vim.g.rainbow_delimiters = {
