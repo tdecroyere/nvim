@@ -33,14 +33,16 @@ return {
                 }
             },
             omnisharp = { },
-            clangd = {
-                cmd = {
-                    "clangd",
-                    "--header-insertion=never"
-                }
-            },
+            --clangd = {
+            --    cmd = {
+            --        "clangd",
+            --        "--header-insertion=never"
+            --    }
+            --},
             cssls = {
             },
+            --pylsp = {
+            --}
             --slang = {
             --}
         }

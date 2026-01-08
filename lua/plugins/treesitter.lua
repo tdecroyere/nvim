@@ -34,7 +34,8 @@ return {
             "vimdoc",
             "query",
             "markdown_inline",
-            "slang"
+            "slang",
+            "python"
             --"swift"
         },
         incremental_selection = {
