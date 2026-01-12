@@ -120,6 +120,10 @@ vim.api.nvim_set_hl(0, "TSRainbowYellow", { fg = '#fad632' })
 vim.api.nvim_set_hl(0, "TSRainbowViolet", { fg = '#cd7bd3' })
 vim.api.nvim_set_hl(0, "TSRainbowBlue", { fg = '#41a1fc' })
 
+vim.api.nvim_set_hl(0, "IlluminatedWordText", { link = "Visual" })
+vim.api.nvim_set_hl(0, "IlluminatedWordRead", { link = "Visual" })
+vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { link = "Visual" })
+
 require("lualine").setup({
     sections = {
         lualine_c = { { "filename", path = 1, file_status = true } },
