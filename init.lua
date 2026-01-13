@@ -24,6 +24,12 @@ vim.opt.sessionoptions = { "buffers", "curdir" }
 vim.cmd("autocmd BufEnter * set formatoptions-=cro")
 vim.cmd("autocmd BufEnter * setlocal formatoptions-=cro")
 
+vim.cmd.language("en_US")
+
+if vim.loop.os_uname().sysname == "Windows_NT" then
+    vim.opt.shell = "pwsh.exe"
+end
+
 ----------------------------------------------------------------------------------------------------------
 -- Packages
 ----------------------------------------------------------------------------------------------------------
@@ -155,8 +161,7 @@ require("nvim-treesitter").install({
     "query",
     "markdown_inline",
     "slang",
-    "python",
-    "swift"
+    "python"
 })
 
 require("rainbow-delimiters.setup").setup({
