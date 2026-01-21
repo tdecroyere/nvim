@@ -164,6 +164,32 @@ require("nvim-treesitter").install({
     "python"
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function(args)
+    if vim.bo[args.buf].buftype ~= "" then 
+        return 
+    end
+
+    local fileType = vim.bo[args.buf].filetype
+
+    if fileType == "" then 
+        return 
+    end
+
+    local lang = vim.treesitter.language.get_lang(fileType)
+
+    if not lang then 
+        return 
+    end
+
+    local result = vim.treesitter.language.add(lang)
+
+    if result then
+      vim.treesitter.start(args.buf, lang)
+    end
+  end
+})
+
 require("rainbow-delimiters.setup").setup({
     highlight = {
         "TSRainbowYellow",
